@@ -1,8 +1,11 @@
 package ba.unsa.etf.rpr;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.List.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PitanjeTest {
@@ -75,7 +78,7 @@ class PitanjeTest {
         Pitanje pitanje = new Pitanje("Koji je podrazumijevani scope u Javi?", 2);
         pitanje.dodajOdgovor("a", "package", true);
         pitanje.dodajOdgovor("b", "private", false);
-        List<Odgovor> odgovori = pitanje.dajListuOdgovora();
+        ArrayList<String> odgovori = pitanje.dajListuOdgovora();
         assertAll(
                 () -> assertEquals(2, odgovori.size()),
                 () -> assertTrue(odgovori.contains(new Odgovor("package", true))),
@@ -90,10 +93,10 @@ class PitanjeTest {
         pitanje.dodajOdgovor("a", "package", true);
         pitanje.dodajOdgovor("b", "private", false);
 
-        double poeni1 = pitanje.izracunajPoene(List.of("a"), SistemBodovanja.BINARNO);
+        double poeni1 = pitanje.izracunajPoene(of("a"), SistemBodovanja.BINARNO);
 
         pitanje.setBrojPoena(3);
-        double poeni2 = pitanje.izracunajPoene(List.of("a"), SistemBodovanja.BINARNO);
+        double poeni2 = pitanje.izracunajPoene(of("a"), SistemBodovanja.BINARNO);
 
         assertAll(
                 () -> assertEquals(2, poeni1),
@@ -107,8 +110,8 @@ class PitanjeTest {
         pitanje.dodajOdgovor("a", "package", true);
         pitanje.dodajOdgovor("b", "private", false);
 
-        double poeni1 = pitanje.izracunajPoene(List.of("b"), SistemBodovanja.BINARNO);
-        double poeni2 = pitanje.izracunajPoene(List.of("a"), SistemBodovanja.BINARNO);
+        double poeni1 = pitanje.izracunajPoene(of("b"), SistemBodovanja.BINARNO);
+        double poeni2 = pitanje.izracunajPoene(of("a"), SistemBodovanja.BINARNO);
 
         assertAll(
                 () -> assertEquals(0, poeni1),
@@ -122,7 +125,7 @@ class PitanjeTest {
         pitanje.dodajOdgovor("a", "package", true);
         pitanje.dodajOdgovor("b", "private", false);
 
-        double poeni = pitanje.izracunajPoene(List.of("a", "b"), SistemBodovanja.BINARNO);
+        double poeni = pitanje.izracunajPoene(of("a", "b"), SistemBodovanja.BINARNO);
         assertEquals(0, poeni);
     }
 
@@ -133,9 +136,9 @@ class PitanjeTest {
         pitanje.dodajOdgovor("b", "zelena", true);
         pitanje.dodajOdgovor("c", "crvena", true);
 
-        double poeni1 = pitanje.izracunajPoene(List.of("a"), SistemBodovanja.BINARNO);
-        double poeni2 = pitanje.izracunajPoene(List.of("a", "b"), SistemBodovanja.BINARNO);
-        double poeni3 = pitanje.izracunajPoene(List.of("a", "b", "c"), SistemBodovanja.BINARNO);
+        double poeni1 = pitanje.izracunajPoene(of("a"), SistemBodovanja.BINARNO);
+        double poeni2 = pitanje.izracunajPoene(of("a", "b"), SistemBodovanja.BINARNO);
+        double poeni3 = pitanje.izracunajPoene(of("a", "b", "c"), SistemBodovanja.BINARNO);
         assertAll(
                 () -> assertEquals(0, poeni1),
                 () -> assertEquals(0, poeni2),
@@ -150,7 +153,7 @@ class PitanjeTest {
         pitanje.dodajOdgovor("b", "zelena", true);
         pitanje.dodajOdgovor("c", "crvena", true);
 
-        double poeni1 = pitanje.izracunajPoene(List.of(), SistemBodovanja.BINARNO);
+        double poeni1 = pitanje.izracunajPoene(of(), SistemBodovanja.BINARNO);
         assertEquals(0, poeni1);
     }
 
@@ -161,9 +164,9 @@ class PitanjeTest {
         pitanje.dodajOdgovor("b", "zelena", true);
         pitanje.dodajOdgovor("c", "crvena", true);
 
-        double poeni1 = pitanje.izracunajPoene(List.of("a"), SistemBodovanja.PARCIJALNO);
-        double poeni2 = pitanje.izracunajPoene(List.of("a", "b"), SistemBodovanja.PARCIJALNO);
-        double poeni3 = pitanje.izracunajPoene(List.of("a", "b", "c"), SistemBodovanja.PARCIJALNO);
+        double poeni1 = pitanje.izracunajPoene(of("a"), SistemBodovanja.PARCIJALNO);
+        double poeni2 = pitanje.izracunajPoene(of("a", "b"), SistemBodovanja.PARCIJALNO);
+        double poeni3 = pitanje.izracunajPoene(of("a", "b", "c"), SistemBodovanja.PARCIJALNO);
         assertAll(
                 () -> assertEquals(1, poeni1),
                 () -> assertEquals(2, poeni2),
@@ -179,11 +182,11 @@ class PitanjeTest {
         pitanje.dodajOdgovor("c", "crvena", true);
         pitanje.dodajOdgovor("d", "plava", false);
 
-        double poeni1 = pitanje.izracunajPoene(List.of("a"), SistemBodovanja.PARCIJALNO);
-        double poeni2 = pitanje.izracunajPoene(List.of("a", "b"), SistemBodovanja.PARCIJALNO);
-        double poeni3 = pitanje.izracunajPoene(List.of("a", "b", "d"), SistemBodovanja.PARCIJALNO);
-        double poeni4 = pitanje.izracunajPoene(List.of("a", "d"), SistemBodovanja.PARCIJALNO);
-        double poeni5 = pitanje.izracunajPoene(List.of("d"), SistemBodovanja.PARCIJALNO);
+        double poeni1 = pitanje.izracunajPoene(of("a"), SistemBodovanja.PARCIJALNO);
+        double poeni2 = pitanje.izracunajPoene(of("a", "b"), SistemBodovanja.PARCIJALNO);
+        double poeni3 = pitanje.izracunajPoene(of("a", "b", "d"), SistemBodovanja.PARCIJALNO);
+        double poeni4 = pitanje.izracunajPoene(of("a", "d"), SistemBodovanja.PARCIJALNO);
+        double poeni5 = pitanje.izracunajPoene(of("d"), SistemBodovanja.PARCIJALNO);
         assertAll(
                 () -> assertEquals(1, poeni1),
                 () -> assertEquals(2, poeni2),
@@ -201,9 +204,9 @@ class PitanjeTest {
         pitanje.dodajOdgovor("c", "crvena", true);
         pitanje.dodajOdgovor("d", "plava", false);
 
-        double poeni1 = pitanje.izracunajPoene(List.of(), SistemBodovanja.PARCIJALNO);
-        double poeni2 = pitanje.izracunajPoene(List.of("a", "b", "c"), SistemBodovanja.PARCIJALNO);
-        double poeni3 = pitanje.izracunajPoene(List.of("a", "b", "c", "d"), SistemBodovanja.PARCIJALNO);
+        double poeni1 = pitanje.izracunajPoene(of(), SistemBodovanja.PARCIJALNO);
+        double poeni2 = pitanje.izracunajPoene(of("a", "b", "c"), SistemBodovanja.PARCIJALNO);
+        double poeni3 = pitanje.izracunajPoene(of("a", "b", "c", "d"), SistemBodovanja.PARCIJALNO);
         assertAll(
                 () -> assertEquals(0, poeni1),
                 () -> assertEquals(4, poeni2),
@@ -219,9 +222,9 @@ class PitanjeTest {
         pitanje.dodajOdgovor("c", "crvena", true);
         pitanje.dodajOdgovor("d", "plava", false);
 
-        double poeni1 = pitanje.izracunajPoene(List.of(), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
-        double poeni2 = pitanje.izracunajPoene(List.of("a", "b", "c"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
-        double poeni3 = pitanje.izracunajPoene(List.of("a", "b", "c", "d"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
+        double poeni1 = pitanje.izracunajPoene(of(), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
+        double poeni2 = pitanje.izracunajPoene(of("a", "b", "c"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
+        double poeni3 = pitanje.izracunajPoene(of("a", "b", "c", "d"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
         assertAll(
                 () -> assertEquals(0, poeni1),
                 () -> assertEquals(4, poeni2),
@@ -237,11 +240,14 @@ class PitanjeTest {
         pitanje.dodajOdgovor("c", "crvena", true);
         pitanje.dodajOdgovor("d", "plava", false);
 
-        double poeni1 = pitanje.izracunajPoene(List.of("a"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
-        double poeni2 = pitanje.izracunajPoene(List.of("a", "b"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
-        double poeni3 = pitanje.izracunajPoene(List.of("a", "b", "d"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
-        double poeni4 = pitanje.izracunajPoene(List.of("d"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
-        double poeni5 = pitanje.izracunajPoene(List.of("a", "b", "c"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
+        double poeni1 = pitanje.izracunajPoene(of("a"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
+        double poeni2 = pitanje.izracunajPoene(of("a", "b"), SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
+        double poeni3 = pitanje.izracunajPoene(of("a", "b", "d"),
+                SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
+        double poeni4 = pitanje.izracunajPoene(of("d"),
+                SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
+        double poeni5 = pitanje.izracunajPoene(of("a", "b", "c"),
+                SistemBodovanja.PARCIJALNO_SA_NEGATIVNIM);
         assertAll(
                 () -> assertEquals(1, poeni1),
                 () -> assertEquals(2, poeni2),
@@ -260,7 +266,8 @@ class PitanjeTest {
         pitanje.dodajOdgovor("d", "plava", false);
 
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () ->  pitanje.izracunajPoene(List.of("e"), SistemBodovanja.BINARNO));
+                () ->  pitanje.izracunajPoene(of("e"),
+                        SistemBodovanja.BINARNO));
 
         assertEquals("Odabran je nepostojeći odgovor", exception.getMessage());
     }
@@ -274,7 +281,7 @@ class PitanjeTest {
         pitanje.dodajOdgovor("d", "plava", false);
 
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () ->  pitanje.izracunajPoene(List.of("a", "b", "a"), SistemBodovanja.BINARNO));
+                () ->  pitanje.izracunajPoene(of("a", "b", "a"), SistemBodovanja.BINARNO));
 
         assertEquals("Postoje duplikati među odabranim odgovorima", exception.getMessage());
     }
